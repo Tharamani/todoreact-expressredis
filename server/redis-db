@@ -1,0 +1,148 @@
+# REDIS(Remote Dictionary Server)
+
+# Fast, open source in-memory data store(stores data in ram(primary memory) rather than secondary memory(hard drive))
+
+# Used for - database, cache, message-broker and queue.
+
+# Redis supports different kinds of data structures,such as strings, lists, maps, sets, sorted sets, bitmaps, streams and spatial indices.
+
+# https://aws.amazon.com/redis/
+
+# Install cmd - sudo apt-get install redis-server
+
+# run redis server - redis-server // server
+
+# run redis client - redis-cli (port 6379) // client
+
+# check connection - ping
+
+# ECHO 'Hello World'
+
+# SET foo 100
+
+# GET foo
+
+# Increment by 1 - INCR foo
+
+# Decrement by 1 - DECR foo
+
+# CHeck if exists - EXISTS foo
+
+# DELETE var - DEL bar
+
+# Exists bar - return 0
+
+# GET bar - retun nil
+
+# ClearAll - FLUSHALL
+
+# Close connection - QUIT
+
+========================================================
+
+# https://www.youtube.com/watch?v=XCsS_NVAa1g
+
+1. mset -> set multiple values for keys
+   ex: mset lang Java tech Redis
+2. mget -> get multiple values for keys
+   ex: mget lang tech
+3. strlen -> get length of the key
+4. incr -> increment count my 1
+5. incrby -> increment count of n
+   ex: set count 1
+   incr count
+   incrby count 10
+6. incrbyfloat -> for floating value
+7. To expire an value after some seconds
+   ex: set a 1
+   expire a 10 // here 10 is in seconds
+8. flushall command will delete all key, value pairs from redis
+9. To push data in a list
+   ex: lpush country India
+   lpush country US
+10. To get all data from ths list
+    ex: lrange country 0 -1 (startRange, -1)
+11. rpush will push the value to the last index of the list
+    ex: rpush country Australia
+12. lpop to remove from list
+    ex: lpop country
+13. llen command to get length of the list
+14. lset is to change the object at the index n
+    ex: lset country 1 USA
+15. linsert is the command to store data at any index
+    ex: linsert country before USA "Russia"
+16. lindex command get the value from any particular index from list
+    ex: lindex country 2
+17. sort <list_name> ALPHA to sort list of characters, just sort <list_name> for numbers
+    ex: sort country ALPHA
+18. To get all keys
+    ex: keys \*
+
+    1. "lang"
+    2. "name"
+    3. "technology"
+
+       ========SET CMDS(No Duplicate values) Intersection, Union, Difference in SET=======================
+
+19. sadd to add values into set
+    sadd tech Java
+    sadd tech redis
+20. smembers technology to display all values in set
+    smembers tech
+21. scard tech to check number of values in set
+    scard tech
+22. sismember to check value exists in set
+    sismember tech JAVA
+23. sadd frontend JS HTML Nodejs React // add values to frontend set
+24. sdiff tech frontend // Difference of list
+    1. "Java"
+    2. "Redis"
+25. sinter tech frontend // Intersection of list
+    1. "React"
+26. sunion tech frontend // Union of list
+
+    1. "Java"
+    2. "Redis"
+    3. "React"
+    4. "HTML"
+    5. "Nodejs"
+    6. "JS"
+
+       ========SORTED SET CMDS(Sort Min to Max values) =======================
+
+27. zadd - order in which values are stored
+    zadd users 1 Thara 2 Alex 3 Nimah
+    1. "Thara"
+    2. "Alex"
+    3. "Nimah"
+28. zrange - display values in order
+    zrange users 0 -1
+    1. "Thara"
+    2. "Alex"
+    3. "Nimah"
+29. zcard - total number of values in set
+
+    ========Hashset (key/value pair) =======================
+
+30. Add key/ values to hash
+    hset myhash name Thara
+    hset myhash email Thara@gmail.com
+31. Get keys using hkeys
+    hkeys myhash
+    1. "name"
+    2. "email"
+32. Get values using hvals
+    hvals myhash
+    1. "Thara"
+    2. "Thara@gmail.com"
+33. Get all keys and values using hgetall
+    hgetall myhash
+    1. "name"
+    2. "Thara"
+    3. "email"
+    4. "Thara@gmail.com"
+34. Check value exists in hashset using hexists
+    hexists myhash name/nme return 1/0
+35. hlen myhash, hset myhash age 25, hmset myhash country India Phone 9999999999999
+    hmget myhash name email Phone, hincrby myhash age 2, hincrbyfloat myhash age 1.5
+    hdel myhash age, hstrlen myhash name
