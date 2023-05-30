@@ -1,21 +1,23 @@
 const redis = require("redis");
+const dotenv = require("dotenv");
 
-const redisOption = {
-  host: "127.0.0.1",
-  port: 5378,
-};
+// loads .env file contents into process.env
+dotenv.config();
 
-let client;
-
+// Connect to redis Database
+const client = redis.createClient();
 const connectDb = async () => {
   try {
-    client = redis.createClient();
+    // By default, redis.createClient() will use 127.0.0.1
+    // and 6379 as the hostname and port respectively.
+
     client.on("error", (err) => console.log("Redis Client Error", err));
 
-    await client.connect(redisOption);
-    console.log("Connected successfully to server");
-    // client.set("key:3", "value3new");
-    // console.log("client get ", await client.get("key:3"));
+    client.connect();
+    console.log("Connected successfully to DB server");
+
+    // let id = await client.set("id", 0);
+    // console.log("id", id);
   } catch (e) {
     console.error(e);
   }

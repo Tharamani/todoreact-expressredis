@@ -5,7 +5,7 @@ const router = express.Router();
 // Router middle-ware for get request
 router.get("/", todoController.getTodo);
 router.post("/", todoController.createTodo);
-// router.put('/:id', todoController.editTodo)
+router.put("/:id", todoController.editTodo);
 // router.delete('/deletedone', todoController.deleteDone)
 // router.delete('/deleteall', todoController.deleteAll)
 // router.delete('/:id', todoController.deleteTodo)

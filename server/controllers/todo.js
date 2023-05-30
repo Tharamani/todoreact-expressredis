@@ -1,4 +1,8 @@
-const { getTodoModel, createTodoModel } = require("../models/todo");
+const {
+  getTodoModel,
+  createTodoModel,
+  updateTodoModel,
+} = require("../models/todo");
 
 //Validate title
 const isValidTitle = (title) => {
@@ -23,21 +27,11 @@ const getTodo = async (req, res) => {
 // Create todo
 const createTodo = async (req, res) => {
   try {
-    const { title, notes, priority, due_date, is_checked } = req.body;
-    console.log("req.body", req.body);
-
-    console.log("isValidTitle", isValidTitle(title));
-    if (!isValidTitle(title)) {
+    if (!isValidTitle(req.body.title)) {
       return res.status(400).json({ message: "Bad request" });
     }
-    // destructure
-    const response = await createTodoModel(
-      title,
-      notes,
-      due_date,
-      priority,
-      is_checked
-    );
+
+    const response = await createTodoModel(req.body);
     console.log("createTodo controller response >>>>>>>>>>> ", response);
 
     return res.status(201).json({
@@ -49,7 +43,35 @@ const createTodo = async (req, res) => {
   }
 };
 
+// Edit todo
+const editTodo = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("editTodo", id);
+
+    const response = await updateTodoModel(id, req.body);
+    console.log("editTodo controller response >>>>>>>>>>> ", response);
+
+    return res.json({
+      message: "Todo updated successfully!",
+      todo: response,
+    });
+  } catch (error) {
+    console.log("Error updating todo : ", error.message);
+    if (error.message === "Failed to update todo") {
+      return res.status(404).json({ message: "Resource not found" });
+    } else {
+      console.log("Error deleteTodo todo : ", error.message);
+
+      return res
+        .status(500)
+        .json({ message: "Something went wrong, please try later" });
+    }
+  }
+};
+
 module.exports = {
   getTodo,
   createTodo,
+  editTodo,
 };
