@@ -1,8 +1,4 @@
 const redis = require("redis");
-const dotenv = require("dotenv");
-
-// loads .env file contents into process.env
-dotenv.config();
 
 // Connect to redis Database
 const client = redis.createClient();
@@ -15,9 +11,6 @@ const connectDb = async () => {
 
     client.connect();
     console.log("Connected successfully to DB server");
-
-    // let id = await client.set("id", 0);
-    // console.log("id", id);
   } catch (e) {
     console.error(e);
   }

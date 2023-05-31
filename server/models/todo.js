@@ -26,10 +26,10 @@ const createTodoModel = async (todo) => {
 };
 
 const updateTodoModel = async (id, todo) => {
-  console.log("updateTodoModel:  id ", id, todo);
-  if (!(await client.hExists("todos", id))) throw new Error("Bad request");
+  if (!(await client.hExists("todos", id)))
+    throw new Error("Failed to update todo");
 
-  let newTodo = { ...todo };
+  const newTodo = { id, ...todo };
   await client.hSet("todos", id, JSON.stringify(newTodo));
 
   const data = await client.hGet("todos", id);
@@ -38,8 +38,58 @@ const updateTodoModel = async (id, todo) => {
   return JSON.parse(data);
 };
 
+const deleteTodoModel = async (id) => {
+  if (!(await client.hExists("todos", id)))
+    throw new Error("Failed to delete todo");
+
+  const result = await client.hDel("todos", id);
+  console.log("deleteTodoModel:  result", result);
+
+  if (result !== 1) throw new Error("Error creating todo");
+  return JSON.parse(result);
+};
+
+const showDoneModel = async () => {
+  let result = await client.hGetAll("todos");
+  let todos;
+  if (result) {
+    todos = Object.entries(result).map((element) => {
+      if (JSON.parse(element[1]).is_checked === true)
+        return JSON.parse(element[1]);
+    });
+  }
+  return todos;
+};
+
+const deleteAllModel = async () => {
+  let result = await client.del("todos");
+  console.log("deleteAllModel : todos", result);
+  return result;
+};
+
+const deleteCompletedTask = async (id) => {
+  const data = await client.hDel("todos", id);
+  if (data === 1) return true;
+};
+
+const deleteDoneModel = async () => {
+  let result = await client.hGetAll("todos");
+  let todos;
+  todos = Object.values(result).filter((todo) => {
+    if (JSON.parse(todo).is_checked === true) {
+      return deleteCompletedTask(JSON.parse(todo).id);
+    } else return false;
+  });
+
+  return todos.length;
+};
+
 module.exports = {
   getTodoModel,
   createTodoModel,
   updateTodoModel,
+  deleteTodoModel,
+  showDoneModel,
+  deleteAllModel,
+  deleteDoneModel,
 };
