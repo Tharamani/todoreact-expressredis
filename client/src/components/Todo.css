@@ -1,0 +1,27 @@
+.text-area {
+    padding: 10px;
+    width: 310px;
+    height: 160px;
+    resize: none;
+  }
+
+  .todo-input, .todo-checkbox, .todo-date , .text-area, .todo-select{
+    padding: 10px;
+    margin: 5px;
+}
+
+button {
+  background-color: grey;
+  padding: 10px;
+    margin: 8px;
+}
+
+.todo-item-show-hide{
+  padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: space-evenly;
+    align-items: flex-start;
+    border: 1px solid black;
+}

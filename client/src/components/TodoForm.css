@@ -1,0 +1,8 @@
+button{
+    background-color: grey;
+}
+
+.todo-form, #title, .todo-form-button{
+    padding: 10px;
+    margin: 8px;
+}
