@@ -27,7 +27,7 @@ function App() {
     setTodos(await fetchRequestGetTodos());
   };
 
-  // Create Todo, call from Todo.jsx
+  // Create Todo
   const addTodo = async (todo) => {
     try {
       const data = await fetchRequestCreateTodo(todo);
@@ -69,6 +69,7 @@ function App() {
     }
   };
 
+  // Show completed todos only
   const showCompletedTodos = async () => {
     try {
       const response = await fetch(`${url}/todo/showdone`, {
@@ -84,6 +85,7 @@ function App() {
     }
   };
 
+  //Delete completed todos only
   const deleteCompletedTodos = async () => {
     try {
       const response = await fetch(`${url}/todo/deletedone`, {
@@ -99,6 +101,7 @@ function App() {
     }
   };
 
+  // Delete all todos
   const deleteAll = async () => {
     try {
       const response = await fetch(`${url}/todo/deleteall`, {
