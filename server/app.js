@@ -2,12 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { connectDb } = require("./config/db");
 const todoRouter = require("./routes/todo");
+var cors = require("cors");
 
 try {
   const app = express();
   // loads .env file contents into process.env
   dotenv.config();
-  app.use(express.json({ type: "*/*" })); //  parses incoming requests with JSON payloads
+  app.use(cors());
+  app.use(express.json()); //  parses incoming requests with JSON payloads
   // Connect to redis client from localhost on port 6379.
   connectDb();
 

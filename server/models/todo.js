@@ -58,7 +58,12 @@ const showDoneModel = async () => {
         return JSON.parse(element[1]);
     });
   }
-  return todos;
+
+  var filteredTodos = todos.filter(function (el) {
+    return el != null;
+  });
+  // console.log("showDoneModel", todos);
+  return filteredTodos;
 };
 
 const deleteAllModel = async () => {
@@ -81,7 +86,7 @@ const deleteDoneModel = async () => {
     } else return false;
   });
 
-  return todos.length;
+  return todos;
 };
 
 module.exports = {

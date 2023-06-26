@@ -141,18 +141,20 @@ const deleteDone = async (req, res) => {
     const response = await deleteDoneModel();
     console.log(
       "deleteTodo controller response >>>>>>>>>>> ",
-      response,
+      response.length,
       response < 0
     );
 
-    if (response === 0) {
+    if (response.length === 0) {
       return res.status(200).json({
         message: "No data to delete done",
+        todosLength: response.length,
       });
     }
 
     return res.status(200).json({
       message: "Todo done deleted successfully!",
+      todosLength: response.length,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
