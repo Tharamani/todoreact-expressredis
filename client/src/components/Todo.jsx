@@ -2,8 +2,6 @@ import { useState } from "react";
 import "./Todo.css";
 
 const Todo = ({ todo, updateTodo, deleteTodo }) => {
-  // console.log("Todo : todo", todo);
-
   const [title, setTitle] = useState(todo.title);
   const [isChecked, setIsChecked] = useState(todo.is_checked);
   const [notes, setNotes] = useState(todo.notes);

@@ -23,11 +23,9 @@ const Footer = ({
     if (e.target.value === "delete-all") {
       await deleteAll();
     }
-    //   await updateTodo({ ...todo, priority: e.target.value });
   };
   return (
     <>
-      <h1>Footer!!</h1>
       <select className="filter-select" value={value} onChange={handleOnChange}>
         <option value="show-all">ShowAll</option>
         <option value="show-done">ShowCompletedTask</option>

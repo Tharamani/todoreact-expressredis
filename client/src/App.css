@@ -4,10 +4,16 @@ body{
 }
 
   #app-container{
-    padding-left: 500px;
+    padding-left: 600px;
     background-color: rgb(220, 159, 159);
     display: flex;
     min-height: 85vh;
     flex-direction: column;
     justify-content: flex-start;
+  }
+
+  #footer, #header{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(220, 159, 159);
   }

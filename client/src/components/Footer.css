@@ -1,4 +1,6 @@
 .filter-select {
-    display: flex;
-    justify-content: space-evenly;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+    margin-bottom: 20px;
   }
