@@ -10,6 +10,9 @@ import {
   fetchRequestCreateTodo,
   fetchRequestUpdateTodo,
   fetchRequestDeleteTodo,
+  fetchRequestShowCompletedTask,
+  fetchRequestDeleteCompletedTodos,
+  fetchRequestDeleteAll,
 } from "./FetchReq";
 
 const url = "http://localhost:4000";
@@ -44,10 +47,8 @@ function App() {
       setTodos((prevTodos) =>
         prevTodos.map((item) => {
           if (item.id === data.todo.id) return data.todo;
-          else {
-            // No changes
-            return item;
-          }
+          // No changes
+          return item;
         })
       );
     } catch (e) {
@@ -59,6 +60,7 @@ function App() {
   const deleteTodo = async (todo) => {
     try {
       const data = await fetchRequestDeleteTodo(todo);
+      console.log("deleteTodo : ", data.message);
       setTodos((prevTodos) =>
         prevTodos.filter((item) => {
           if (item.id !== todo.id) return item;
@@ -72,13 +74,7 @@ function App() {
   // Show completed todos only
   const showCompletedTodos = async () => {
     try {
-      const response = await fetch(`${url}/todo/showdone`, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        throw new Error("Error ", { cause: data.message });
-      }
-      const data = await response.json();
+      const data = await fetchRequestShowCompletedTask();
       setTodos(data);
     } catch (e) {
       console.log("Error: showCompletedTodos ", e.message);
@@ -88,13 +84,8 @@ function App() {
   //Delete completed todos only
   const deleteCompletedTodos = async () => {
     try {
-      const response = await fetch(`${url}/todo/deletedone`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Error ", { cause: data.message });
-      }
-      const data = await response.json();
+      const data = await fetchRequestDeleteCompletedTodos();
+      console.log("deleteTodo : ", data.message);
       populateTodos();
     } catch (e) {
       console.log("Error: deleteCompletedTodos ", e.message);
@@ -104,18 +95,14 @@ function App() {
   // Delete all todos
   const deleteAll = async () => {
     try {
-      const response = await fetch(`${url}/todo/deleteall`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Error ", { cause: data.message });
-      }
-      const data = await response.json();
+      const data = await fetchRequestDeleteAll();
+      console.log("deleteTodo : ", data.message);
       populateTodos();
     } catch (e) {
       console.log("Error: deleteAll ", e.message);
     }
   };
+
   return (
     <>
       <div id="header">

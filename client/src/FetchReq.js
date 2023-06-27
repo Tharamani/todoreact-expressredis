@@ -52,3 +52,36 @@ export const fetchRequestDeleteTodo = async (todo) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchRequestShowCompletedTask = async () => {
+  const response = await fetch(`${url}/todo/showdone`, {
+    method: "GET",
+  });
+  if (!response.ok) {
+    throw new Error("Error ", { cause: data.message });
+  }
+  const data = await response.json();
+  return data;
+};
+
+export const fetchRequestDeleteCompletedTodos = async () => {
+  const response = await fetch(`${url}/todo/deletedone`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Error ", { cause: data.message });
+  }
+  const data = await response.json();
+  return data;
+};
+
+export const fetchRequestDeleteAll = async () => {
+  const response = await fetch(`${url}/todo/deleteall`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Error ", { cause: data.message });
+  }
+  const data = await response.json();
+  return data;
+};
